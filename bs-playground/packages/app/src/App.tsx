@@ -33,6 +33,9 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import HotTub from '@material-ui/icons/HotTub';
+import { rainbowTheme } from '../src/components/themes/RainbowTheme';
 
 const app = createApp({
   apis,
@@ -51,6 +54,19 @@ const app = createApp({
       catalogIndex: catalogPlugin.routes.catalogIndex,
     });
   },
+  themes: [
+    {
+      id: 'rainbow-theme',
+      title: 'Meme theme of the ages',
+      variant: 'light',
+      icon: <HotTub />,
+      Provider: ({ children }) => (
+        <ThemeProvider theme={rainbowTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+  ],
 });
 
 const routes = (
